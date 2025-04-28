@@ -86,7 +86,7 @@ export const DELETE = async (req) => {
   await dbConnect()
 
   try {
-    const body = await req.json()
+    const body = await req.json(); // Parse JSON from request
     const { category, limit } = body;
 
     // Validate required fields
@@ -99,8 +99,8 @@ export const DELETE = async (req) => {
 
     // Find the budget entry to delete
     const deletedBudget = await Budget.findOne({ category });
-    await Budget.deleteOne({ category })
-
+    await Budget.deleteOne({ category }); // Delete the budget entry
+    
     return new Response(
       { message: "Budget deleted successfully" },
       { status: 200 }

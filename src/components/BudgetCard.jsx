@@ -35,7 +35,7 @@ const BudgetCard = ({ budget, statusColor, percentage }) => {
   const [isEditing, setIsEditing] = useState(false);
 
   
-  const [budgetinComponent, setBudgetInComponent] = useState(budget);
+  const [budgetInComponent, setBudgetInComponent] = useState(budget);
 
   // Handle delete button click
   const handleDeleteClick = (budget) => {
@@ -76,6 +76,12 @@ const BudgetCard = ({ budget, statusColor, percentage }) => {
     }
   };
 
+  const reloadPage = () => {
+    if (typeof window !== 'undefined') {
+      window.location.reload();
+    }
+  };
+
   // Cancel the edit mode
   const handleCancelEditBudget = () => {
     setBudgetToEdit(null);
@@ -102,7 +108,7 @@ const BudgetCard = ({ budget, statusColor, percentage }) => {
         alert("Budget Deleted successfully");
         setBudgetToDelete(null);
         setShowConfirmDialog(false);
-        ReloadPage();
+        reloadPage();
         return res.json();
       }
     }
@@ -116,7 +122,7 @@ const BudgetCard = ({ budget, statusColor, percentage }) => {
         <CardHeader>
           <CardTitle className="flex justify-between items-center">
             <div className="flex text-2xl items-center">
-              <span className="mr-2">{budgetinComponent.category}</span>
+              <span className="mr-2">{budgetInComponent.category}</span>
               <Select
                 value={budgetToEdit.period}
                 onValueChange={(value) =>
@@ -191,21 +197,21 @@ const BudgetCard = ({ budget, statusColor, percentage }) => {
   return (
     <>
       {/* Display the budget card when not in edit mode */}
-      <Card key={budgetinComponent._id} className="relative overflow-hidden">
+      <Card key={budgetInComponent._id} className="relative overflow-hidden">
         <div className={`absolute top-0 left-0 w-1 h-full ${statusColor}`} />
         <CardHeader>
           <CardTitle className="flex justify-between items-center">
             <div>
-              <span className="mr-2">{budgetinComponent.category}</span>
+              <span className="mr-2">{budgetInComponent.category}</span>
               <span className="text-sm font-normal text-muted-foreground">
-                ({budgetinComponent.period})
+                ({budgetInComponent.period})
               </span>
             </div>
             <div className="flex space-x-2 items-center">
               <Button
                 variant="ghost"
                 size="icon"
-                onClick={() => handleEditClick(budgetinComponent)}
+                onClick={() => handleEditClick(budgetInComponent)}
                 className="h-8 w-8"
               >
                 <Edit2 className="h-4 w-4" />
@@ -213,7 +219,7 @@ const BudgetCard = ({ budget, statusColor, percentage }) => {
               <Button
                 variant="ghost"
                 size="icon"
-                onClick={() => handleDeleteClick(budgetinComponent)}
+                onClick={() => handleDeleteClick(budgetInComponent)}
                 className="h-8 w-8"
               >
                 <Trash2 className="h-4 w-4 text-red-500" />
@@ -223,9 +229,9 @@ const BudgetCard = ({ budget, statusColor, percentage }) => {
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="flex justify-between text-2xl font-bold">
-            <span>${budgetinComponent.actualSpent.toFixed(2)}</span>
+            <span>${budgetInComponent.actualSpent.toFixed(2)}</span>
             <span className="text-muted-foreground">
-              ${budgetinComponent.limit.toFixed(2)}
+              ${budgetInComponent.limit.toFixed(2)}
             </span>
           </div>
           <div className="space-y-2">
@@ -238,7 +244,7 @@ const BudgetCard = ({ budget, statusColor, percentage }) => {
               <span>
                 $
                 {(
-                  budgetinComponent.limit - budgetinComponent.actualSpent
+                  budgetInComponent.limit - budgetInComponent.actualSpent
                 ).toFixed(2)}{" "}
                 remaining
               </span>

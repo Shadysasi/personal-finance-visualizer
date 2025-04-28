@@ -33,14 +33,12 @@ import { getCategories } from "@/lib/data";
 
 export default function TransactionList({
   transactions,
-  onDelete,
-  onUpdate,
   compact = false,
 }) {
   // States for handling editing and deletion processes
   const [editingId, setEditingId] = useState(null);
   const [editedTransaction, setEditedTransaction] = useState(null); 
-  const [showConfirmDialog, setShowConfirmDialog] = useState(false);
+  const [showConfirmDialog, setShowConfirmDialog] = useState(false); // Manages
   const [transactionToDelete, setTransactionToDelete] = useState(null);
   const [previousAmount, setPreviousAmount] = useState(null);
 
@@ -105,15 +103,7 @@ export default function TransactionList({
     setShowConfirmDialog(true); 
   };
 
-  // Confirm the deletion and call the onDelete function
-  const handleConfirmDelete = () => {
-    if (transactionToDelete) {
-      onDelete(transactionToDelete._id); 
-    }
-    setShowConfirmDialog(false); 
-    setTransactionToDelete(null); 
-  };
-
+  
   // Confirm the deletion from the dialog and delete the transaction
   const handleDeleteConfirm = async () => {
     if (transactionToDelete) {

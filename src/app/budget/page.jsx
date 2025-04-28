@@ -3,24 +3,13 @@
 import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import BudgetForm from "@/components/BudgetForm";
-import { PlusCircle } from "lucide-react";
+import { Edit2, PlusCircle, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { getCategories } from "@/lib/data";
 import { fetchBudgets } from "@/lib/fetchTransactions";
 import BudgetCard from "@/components/BudgetCard";
 
-// Function to create a new budget
-const createBudget = async (budgetData) => {
-  const res = await fetch("/api/budget", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(budgetData),
-  });
-  if (!res.ok) throw new Error("Failed to create budget");
-  return res.json();
-};
+
 
 const BudgetPage = () => {
   const [budgets, setBudgets] = useState([]);
